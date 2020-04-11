@@ -5,12 +5,13 @@ import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
-} from "./authActions";
+} from "./authActionsTypes";
 
 
-export const loginRequest = payload => ({
+export const loginRequest = (payload, history) => ({
   type: LOGIN_REQUEST,
   payload,
+  history
 });
 
 export const loginSuccess = payload => ({

@@ -3,13 +3,15 @@ import { routes } from "../react/router";
 import { BrowserRouter } from "react-router-dom";
 import Loadable from "react-loadable";
 
+import "../../src/assets/scss/index.scss"
+
 import { isUserAuthenticated } from "../helpers/authUtils";
 
 
 const loading = () => <div/>;
 
 const NonAuthLayout = Loadable({
-  loader: () => import("./components/UserLayout"),
+  loader: () => import("./components/AuthLayout"),
   render(loaded, props) {
     const LoadedComponent = loaded.default;
 
@@ -19,7 +21,7 @@ const NonAuthLayout = Loadable({
 });
 
 const AuthLayout = Loadable({
-  loader: () => import("./components/AuthLayout"),
+  loader: () => import("./components/UserLayout"),
   render(loaded, props) {
     const LoadedComponent = loaded.default;
 
@@ -31,6 +33,7 @@ const AuthLayout = Loadable({
 
 function App() {
   const getLayout = () => {
+    console.log(isUserAuthenticated());
     return isUserAuthenticated() ? AuthLayout : NonAuthLayout;
   };
 
