@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../la_storefront/.idea/la_storefront.iml" filepath="$PROJECT_DIR$/../la_storefront/.idea/la_storefront.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/ua-services-front.iml" filepath="$PROJECT_DIR$/.idea/ua-services-front.iml" />
     </modules>
   </component>
