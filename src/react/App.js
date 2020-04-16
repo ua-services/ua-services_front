@@ -33,7 +33,6 @@ const AuthLayout = Loadable({
 
 function App() {
   const getLayout = () => {
-    console.log(isUserAuthenticated());
     return isUserAuthenticated() ? AuthLayout : NonAuthLayout;
   };
 

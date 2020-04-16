@@ -9,7 +9,7 @@ function getHeaders(extraHeaders = {}) {
   // Add auth token
   const cookies = new Cookies();
   const user = cookies.get("user");
-  if (user && user.token) headers.Authorization = `Bearer ${user.token}`;
+  if (user && user.token) headers.Authorization = `${user.token}`;
 
   Object.keys(extraHeaders).forEach(key => {
     if (extraHeaders[key] === null) delete headers[key];
