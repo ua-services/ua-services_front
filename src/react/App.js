@@ -11,7 +11,7 @@ import { isUserAuthenticated } from "../helpers/authUtils";
 const loading = () => <div/>;
 
 const NonAuthLayout = Loadable({
-  loader: () => import("./components/AuthLayout"),
+  loader: () => import("./components/UserLayout"),
   render(loaded, props) {
     const LoadedComponent = loaded.default;
 

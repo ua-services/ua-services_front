@@ -80,6 +80,10 @@ const MyAgency = props => {
     </div>
   );
 
+  const goToEditAgency = () => {
+    props.history.push("/edit-agency");
+  };
+
   return (
     <div className="agency-layout">
       <Card title={renderHeader()} style={{ width: 700 }}>
@@ -90,6 +94,7 @@ const MyAgency = props => {
         {renderAgencyItem("Short Description", short_description)}
         <Button
           size="large"
+          onClick={goToEditAgency}
           type="primary"
           className="agency--info-btn">
           Edit Agency

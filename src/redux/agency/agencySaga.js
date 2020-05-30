@@ -4,13 +4,16 @@ import agency from "../../api/agency";
 
 import {
   GET_OWN_AGENCY_REQUEST,
-  GET_AGENCY_EMPLOYEES_REQUEST
+  GET_AGENCY_EMPLOYEES_REQUEST,
+  EDIT_OWN_AGENCY_REQUEST
 } from "./agencyActionsTypes";
 import {
   getOwnAgencySuccess,
   getOwnAgencyFailure,
   getAgencyEmployeesSuccess,
-  getAgencyEmployeesFailure
+  getAgencyEmployeesFailure,
+  editOwnAgencySuccess,
+  editOwnAgencyFailure
 } from "./agencyActions";
 
 
@@ -32,10 +35,20 @@ function *getEmployeesSage({ payload }) {
   }
 }
 
+function *editEmployeesSage({ payload }) {
+  try {
+    const response = yield call(agency.editOnwAgency, payload);
+    yield put(editOwnAgencySuccess(response));
+  } catch (error) {
+    yield put(editOwnAgencyFailure(error));
+  }
+}
+
 
 export default function *() {
   yield all([
     yield takeLatest(GET_OWN_AGENCY_REQUEST, getOnwAgencySaga),
     yield takeLatest(GET_AGENCY_EMPLOYEES_REQUEST, getEmployeesSage),
+    yield takeLatest(EDIT_OWN_AGENCY_REQUEST, editEmployeesSage),
   ])
 }

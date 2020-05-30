@@ -13,6 +13,18 @@ const agency = {
     }
   },
 
+  async editOnwAgency({ id, ...data}) {
+    try {
+      return await fetch(`${API_URL}/agencies/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(data)
+      })
+    } catch (err) {
+      if (err.response && err.response.data) throw err.response.data;
+      throw err;
+    }
+  },
+
   async getEmployees() {
     try {
       return await fetch(`${API_URL}/agencies/`, {

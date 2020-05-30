@@ -1,34 +1,94 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import { Menu } from "antd";
-import {
-  UserOutlined,
-  ShopOutlined
-} from "@ant-design/icons";
+import { Modal } from "antd";
 
-const TopBar = props => {
-  const { history: {
-    location: {
-      pathname
-    }
-  } } = props;
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
+
+const TopBar = () => {
+  const [isLoginModalActive, setIsLoginModalActive] = useState(false);
+  const [isRegisterModalActive, setIsRegisterModalActive] = useState(false);
+
+  const menuItems = [
+    "Обрати послугу",
+    "Обрати сервіс",
+    "Рейтинг",
+    "Дата",
+    "Час"
+  ];
+
+  const renderMenuItem = item => {
+    return (
+      <div>
+        <span
+          key={item}
+          className="header-menu-options-option">
+          {item}
+        </span>
+      </div>
+    );
+  };
+
+  const openRegister = () => {
+    setIsRegisterModalActive(true);
+    setIsLoginModalActive(false);
+  };
+
+  const renderModalButton = () => {
+    return (
+      <>
+        <Modal
+          className="auth-modal"
+          onCancel={() => setIsLoginModalActive(false)}
+          title="Авторизація"
+          visible={isLoginModalActive}
+          footer={null}
+        >
+          <Login
+            { ...{ openRegister } }
+          />
+        </Modal>
+        <Modal
+          className="auth-modal"
+          onCancel={() => setIsRegisterModalActive(false)}
+          title="Реєстрація"
+          visible={isRegisterModalActive}
+          footer={null}
+        >
+        <Register/>
+      </Modal>
+      </>
+    )
+  };
 
   return (
-    <Menu
-      selectedKeys={pathname}
-      mode="horizontal"
+    <div
+      className="header-menu"
     >
-      <Menu.Item
-        key="profile">
-        <UserOutlined />
-        User Profile
-      </Menu.Item>
-      <Menu.Item key="my-agency">
-        <ShopOutlined />
-        My Agency
-      </Menu.Item>
-    </Menu>
+      <h2 className="header-logo">
+        ЛОГО
+      </h2>
+      <div className="header-menu-options">
+        {menuItems.map(renderMenuItem)}
+      </div>
+      <div
+        className="header--text"
+      >
+         <span
+           onClick={() => setIsLoginModalActive(true)}
+         >
+           Вхід
+         </span>
+        <span> | </span>
+          <span
+            onClick={() => setIsRegisterModalActive(true)}
+          >
+            Реєстрація
+          </span>
+      </div>
+      {renderModalButton()}
+    </div>
   )
 };
 

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import TopBar from "./Topbar";
+import Footer from "./Footer";
 
 function UserLayout({ children }) {
   const { history } = children.props;
@@ -12,6 +13,7 @@ function UserLayout({ children }) {
           { ...{ history } }
         />
         { children }
+       <Footer/>
       </div>
   );
 }

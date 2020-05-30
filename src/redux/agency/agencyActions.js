@@ -4,7 +4,10 @@ import {
   GET_OWN_AGENCY_FAILURE,
   GET_AGENCY_EMPLOYEES_REQUEST,
   GET_AGENCY_EMPLOYEES_SUCCESS,
-  GET_AGENCY_EMPLOYEES_FAILURE
+  GET_AGENCY_EMPLOYEES_FAILURE,
+  EDIT_OWN_AGENCY_REQUEST,
+  EDIT_OWN_AGENCY_SUCCESS,
+  EDIT_OWN_AGENCY_FAILURE
 } from "./agencyActionsTypes";
 
 
@@ -20,6 +23,21 @@ export const getOwnAgencySuccess = payload => ({
 
 export const getOwnAgencyFailure = payload => ({
   type: GET_OWN_AGENCY_FAILURE,
+  payload,
+});
+
+export const editOwnAgencyRequest = payload => ({
+  type: EDIT_OWN_AGENCY_REQUEST,
+  payload,
+});
+
+export const editOwnAgencySuccess = payload => ({
+  type: EDIT_OWN_AGENCY_SUCCESS,
+  payload,
+});
+
+export const editOwnAgencyFailure = payload => ({
+  type: EDIT_OWN_AGENCY_FAILURE,
   payload,
 });
 

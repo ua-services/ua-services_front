@@ -2,10 +2,12 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { Input, Button } from "antd";
+import { Button } from "antd";
 import "antd/dist/antd.css";
 
 import { useForm } from "react-hook-form";
+
+import Input from "../../components/Input";
 
 import {
   loginRequest
@@ -13,15 +15,15 @@ import {
 
 
 const Login = props => {
-  const required = "Field is required";
+  const required = "Поле є обов'язковим";
   const inputsConfig = [
-    { type: "email" ,name: "email", placeholder: "Email", validate: { required } },
-    { type: "password", name: "password", placeholder: "Password", validate: { required } },
+    { type: "email", name: "email", placeholder: "Електронний Адрес", validate: { required } },
+    { type: "password", name: "password", placeholder: "Пароль", validate: { required } },
   ];
 
   const { register, handleSubmit, errors, setValue, watch, setError } = useForm();
 
-  const inputOnChange = name => ({ target }) => {
+  const onChange = name => ({ target }) => {
     setValue(name, target.value)
   };
 
@@ -37,66 +39,49 @@ const Login = props => {
     }
   }, [props.errors]);
 
-  const renderInput = inputProps => {
-    const { name, placeholder, validate } = inputProps;
-
+  const renderInput = (inputProps = {}) => {
     return (
-        <div
-          key={name}
-          className="auth-login--input-container">
-          <label>
-            {`${placeholder.toUpperCase()} ${validate ? "*" : ""}`}
-          </label>
-          <Input
-            {...inputProps}
-            ref={register({ name }, validate)}
-            value={watch(name)}
-            onChange={inputOnChange(name)}
-          />
-          {
-            errors[name] &&
-            <span className="">
-              {errors[name].message}
-            </span>
-          }
-        </div>
+      <Input
+        { ...{
+          register, errors,
+          watch, onChange,
+          ...inputProps }
+        }
+      />
     )
   };
 
+
   return (
-    <div
-      className="auth-login">
-      <div
-        className="auth-login--container"
+    <form
+      className="auth-form"
+      onSubmit={handleSubmit(onSubmit)}>
+      {inputsConfig.map(renderInput)}
+      <Button
+        type="primary"
+        className="auth-submit-btn"
+        htmlType="submit"
       >
-        <h1>
-          Login
-        </h1>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          {inputsConfig.map(renderInput)}
-          <div
-            className="auth-login--button-container"
-          >
-            <Button
-              type="primary"
-              className="login-form-button"
-              htmlType="submit"
-            >
-              Login
-            </Button>
-          </div>
-        </form>
+        Увійти
+      </Button>
+      <div className="auth-form-new-acc">
+        <span className="auth-form-still-no-acc">
+          Досі немає аккаунта?
+        </span>
+        <span
+          onClick={props.openRegister}
+          className="auth-form-register">
+          Зареєструватися
+        </span>
       </div>
-    </div>
+    </form>
   )
 };
 
 
 
 Login.propTypes = {
-  history: PropTypes.object.isRequired
+  openRegister: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = {
